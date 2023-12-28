@@ -3,7 +3,7 @@ use crate::*;
 
 #[get("/test")]
 pub async fn test() -> Result<String, rocket::response::status::NotFound<String>> {
-    let db = db::db().await?;
+    let db = db::db().await.unwrap();
 
     // insert user into
     /*
@@ -14,11 +14,22 @@ pub async fn test() -> Result<String, rocket::response::status::NotFound<String>
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     ); */
 
-    let user = sqlx::query!(
-        "INSERT INTO users (username, email) VALUES ($1, $2) RETURNING id",
-        "test",
-        "test@example.com"
-    );
+    // let user = sqlx::query!(
+    //     "INSERT INTO users (username, email) VALUES ($1, $2) RETURNING id",
+    //     "test",
+    //     "test@example.com"
+    // )
+    // .fetch_one(&db)
+    // .await
+    // .unwrap();
 
-    Ok(String::from("Hello, world!"))
+    let test = sqlx::query!(
+        "INSERT INTO variables (value) VALUES ($1) RETURNING id",
+        "test"
+    )
+    .fetch_one(&db)
+    .await
+    .unwrap();
+
+    Ok(String::from(format!("test: {}", test.id)))
 }

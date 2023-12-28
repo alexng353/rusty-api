@@ -1,4 +1,4 @@
-use super::*;
+use anyhow::{Context, Result};
 use sqlx::postgres::PgPoolOptions;
 
 pub async fn db() -> Result<sqlx::Pool<sqlx::Postgres>> {

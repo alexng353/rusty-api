@@ -27,11 +27,12 @@ pub(crate) use state::AppState;
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     dotenv().ok();
+    let port = std::env::var("PORT").unwrap_or_else(|_| "3000".to_string());
 
     let app = init_router().await?;
 
-    let listener = tokio::net::TcpListener::bind("localhost:3000").await?;
-    println!("listening on http://{}", listener.local_addr()?);
+    let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{}", port)).await?;
+    println!("listening on http://localhost:{}", port);
     axum::serve(listener, app).await?;
 
     Ok(())

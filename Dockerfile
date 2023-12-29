@@ -10,3 +10,5 @@ RUN apt-get update && apt-get install -y \
 COPY . .
 
 RUN cargo build --release
+
+CMD [ "/app/target/release/rusty-api" ]

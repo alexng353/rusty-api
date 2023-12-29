@@ -1,8 +1,11 @@
-FROM rust:1-alpine3.19 
+FROM rust:1-bookworm
 
 WORKDIR /app
 
-RUN apk add --no-cache musl-dev openssl-dev pkgconfig
+RUN apt-get update && apt-get install -y \
+    libssl-dev \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY . .
 

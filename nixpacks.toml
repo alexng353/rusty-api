@@ -1,2 +1,2 @@
 [phases.setup]
-aptPkgs = ["...", "openssl"]
+aptPkgs = ["...", "libssl-dev", "pkg-config"]

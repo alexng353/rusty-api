@@ -1,2 +1,0 @@
-[phases.setup]
-aptPkgs = ["...", "libssl-dev", "pkg-config", "libssl-doc", "openssl-dev"]
